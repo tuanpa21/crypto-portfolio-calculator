@@ -60,6 +60,11 @@ function readCSV(url: string): Promise<Map<string, number>> {
 
         try {
             const response = await axios.get(url, { responseType: "text" });
+
+            if(!response.data) {
+                reject("No data found");
+            }
+
             const readable = Readable.from(response.data);
 
             readable
