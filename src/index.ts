@@ -73,15 +73,15 @@ function readCSV(url: string): Promise<Map<string, number>> {
 
                     const currentBalance = balances.get(token) || 0;
                     // Check transaction type to update the balance
-                    if (transaction_type === "DEPOSIT") {
-                        balances.set(token, currentBalance + parseFloat(amount));
-                    } else if (transaction_type === "WITHDRAWAL") {
-                        // Validate that the withdrawal amount is not greater than the current balance
-                        // if (currentBalance < parseFloat(amount)) {
-                        //     const errMsg = `Insufficient balance for ${token} withdrawal`;
-                        //     throw new Error(errMsg);
-                        // }
-                        balances.set(token, currentBalance - parseFloat(amount));
+                    switch (transaction_type) {
+                        case  "DEPOSIT":
+                            balances.set(token, currentBalance + parseFloat(amount));
+                            break;
+                        case "WITHDRAWAL":
+                            balances.set(token, currentBalance - parseFloat(amount));
+                            break;
+                        default:
+                            break;
                     }
                 })
                 .on("end", () => resolve(balances))
