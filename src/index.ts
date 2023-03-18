@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import csv from "csv-parser";
 import {Readable} from "stream";
 import chalk from "chalk";
@@ -50,7 +50,11 @@ async function getPortfolioValue() {
         // Print out the data output in table format
         console.table(tableData);
     } catch (error) {
-        console.error("Error:", error);
+        if(error instanceof AxiosError){
+            console.error("🚫 Error:", error.response?.data);
+            return
+        }
+        console.error("🚫 Error:", error);
     }
 }
 
@@ -92,6 +96,10 @@ function readCSV(url: string): Promise<Map<string, number>> {
                 .on("end", () => resolve(balances))
                 .on("error", (error) => reject(error));
         } catch (error) {
+            if(error instanceof AxiosError){
+                reject(error.response?.data);
+                return
+            }
             reject(error);
         }
     });
