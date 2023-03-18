@@ -18,3 +18,32 @@ This command-line program calculates the latest portfolio value per token in USD
 
 - [Node.js](https://nodejs.org/) (>= 14.x)
 - [npm](https://www.npmjs.com/) (>= 6.x)
+
+
+## Installation
+
+1. Clone the repository:
+
+```bash 
+git clone https://github.com/tuanpa21/crypto-portfolio-calculator.git
+```
+
+
+2. Navigate to the project directory and install dependencies:
+
+```bash
+npm install
+```
+
+## Usage
+
+To run the program, execute the following command:
+
+```bash
+npm run start
+```
+
+The program will read transaction data from a CSV file hosted at the specified URL, calculate the token balances, and display the latest portfolio value per token in USD using the CryptoCompare API for exchange rates.
+
+## A screenshot demo of the program
+![img.png](assets/output-demo.png)
